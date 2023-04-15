@@ -11,7 +11,7 @@ on:
     tags: [ 'v*' ]
 
 env:
-  PHIX_IMAGE_SUFFIX: "-${GITHUB_REFS##/v}"
+  DOCKER_TAG_SUFFIX: "-${GITHUB_REFS##/v}"
 
 jobs:
   publish:
@@ -25,7 +25,7 @@ jobs:
         env:
           DOCKER_USER: rzuckerm
           DOCKER_TOKEN: ${{secrets.DOCKER_TOKEN}}
-        run: docker login -u "${DOCKER_USER}" -p "${DOCKER_TOKEN}"
+        run: echo "${DOCKER_TOKEN}" | docker login -u "${DOCKER_USER}" --password-stdin
 
       - name: Build images
         run: make build
@@ -34,4 +34,4 @@ jobs:
         run: make test
 
       - name: Publish images
-        run: make publish
+        run: echo make publish
