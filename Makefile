@@ -46,5 +46,5 @@ $(TEST_TARGETS): test-%: .meta-build-%
 publish: $(PUBLISH_TARGETS)
 $(PUBLISH_TARGETS): publish-%: .meta-build-%
 	@echo "*** Publishing $(DOCKER_TAG_PREFIX)$*$(DOCKER_TAG_SUFFIX) ***"
-	@echo docker push $(DOCKER_TAG_PREFIX)$*$(DOCKER_TAG_SUFFIX)
+	docker push $(DOCKER_TAG_PREFIX)$*$(DOCKER_TAG_SUFFIX)
 	@echo ""
