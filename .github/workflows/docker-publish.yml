@@ -10,9 +10,6 @@ on:
     # Publish semver tags as releases.
     tags: [ 'v*' ]
 
-env:
-  DOCKER_TAG_SUFFIX: "-${GITHUB_REF##/v}"
-
 jobs:
   publish:
 
@@ -27,11 +24,21 @@ jobs:
           DOCKER_TOKEN: ${{secrets.DOCKER_TOKEN}}
         run: echo "${DOCKER_TOKEN}" | docker login -u "${DOCKER_USER}" --password-stdin
 
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
+        with:
+          # Optionally strip `v` prefix
+          strip_v: true
+
+      - name: Show tag
+        run: echo "Tag (without v) is ${{steps.tag.outputs.tag}}"
+
       - name: Build images
-        run: make build DOCKER_TAG_SUFFIX=${DOCKER_TAG_SUFFIX}
+        run: make build DOCKER_TAG_SUFFIX=-${{steps.tag.outputs.tag}}
 
       - name: Test images
-        run: make test DOCKER_TAG_SUFFIX=${DOCKER_TAG_SUFFIX}
+        run: make test DOCKER_TAG_SUFFIX=-${{steps.tag.outputs.tag}}
 
       - name: Publish images
-        run: echo make publish DOCKER_TAG_SUFFIX=${DOCKER_TAG_SUFFIX}
+        run: echo make publish DOCKER_TAG_SUFFIX=-${{steps.tag.outputs.tag}}
