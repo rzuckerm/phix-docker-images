@@ -1,6 +1,5 @@
 [![Makefile CI](https://github.com/rzuckerm/phix-docker-images/actions/workflows/makefile.yml/badge.svg)](https://github.com/rzuckerm/phix-docker-images/actions/workflows/makefile.yml)
-[![Docker](https://github.com/rzuckerm/phix-docker-images/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/rzuckerm/phix-docker-images/actions/workflows/docker-publish.yml)
-
+[![Publish CI](https://github.com/rzuckerm/phix-docker-images/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/rzuckerm/phix-docker-images/actions/workflows/docker-publish.yml)
 # phix-docker-images
 
 Docker images for [Phix programming language](http://phix.x10.mx/):
