@@ -1,0 +1,10 @@
+FROM ubuntu:22.04
+ARG PHIX_VERSION=
+COPY install_phix.sh /tmp/
+RUN set -ex && \
+    apt-get update && \
+    apt-get install -y wget unzip gcc && \
+    apt-get clean && \
+    rm -rf /var/cache/apt/* rm -rf /var/lib/apt/lists/*
+RUN /tmp/install_phix.sh "${PHIX_VERSION}" && \
+    rm -f /tmp/install_phix.sh
