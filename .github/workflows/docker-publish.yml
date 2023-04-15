@@ -28,10 +28,10 @@ jobs:
         run: echo "${DOCKER_TOKEN}" | docker login -u "${DOCKER_USER}" --password-stdin
 
       - name: Build images
-        run: make build
+        run: make build DOCKER_TAG_SUFFIX=${DOCKER_TAG_SUFFIX}
 
       - name: Test images
-        run: make test
+        run: make test DOCKER_TAG_SUFFIX=${DOCKER_TAG_SUFFIX}
 
       - name: Publish images
-        run: echo make publish
+        run: echo make publish DOCKER_TAG_SUFFIX=${DOCKER_TAG_SUFFIX}
