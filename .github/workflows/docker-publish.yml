@@ -41,4 +41,4 @@ jobs:
         run: make test DOCKER_TAG_SUFFIX=-${{steps.tag.outputs.tag}}
 
       - name: Publish images
-        run: echo make publish DOCKER_TAG_SUFFIX=-${{steps.tag.outputs.tag}}
+        run: make publish DOCKER_TAG_SUFFIX=-${{steps.tag.outputs.tag}}
