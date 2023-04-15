@@ -14,7 +14,7 @@ env:
   PHIX_IMAGE_SUFFIX: "-${GITHUB_REFS##/v}"
 
 jobs:
-  build:
+  publish:
 
     runs-on: ubuntu-latest
     steps:
@@ -25,8 +25,7 @@ jobs:
         env:
           DOCKER_USER: rzuckerm
           DOCKER_TOKEN: ${{secrets.DOCKER_TOKEN}}
-        run: |
-          echo "${DOCKER_TOKEN}" | docker login -u "${DOCKER_USER}"
+        run: docker login -u "${DOCKER_USER}" -p "${DOCKER_TOKEN}"
 
       - name: Build images
         run: make build
