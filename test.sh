@@ -10,6 +10,7 @@ fi
 
 RESULT="$(${DOCKER_RUN} sh -c "${CMD}")"
 echo "${RESULT}"
+rm -f hello_world
 if [ "${RESULT}" = "Hello, world!" ]
 then
     echo "PASSED"

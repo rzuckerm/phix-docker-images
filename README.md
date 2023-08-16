@@ -12,3 +12,5 @@ where:
 - `<version>` is the [Phix version](PHIX_VERSION)
 - `<os>` is the Operating System (currently only Ubuntu 22.04)
 - `<tag>` is the current GitHub tag without the "v"
+
+The docker images can be found [here](https://hub.docker.com/r/rzuckerm/phix).
