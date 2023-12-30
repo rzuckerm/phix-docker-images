@@ -3,7 +3,9 @@ ARG PHIX_VERSION=
 COPY install_phix.sh /tmp/
 RUN apt-get update && \
     apt-get install -y wget unzip && \
+    /tmp/install_phix.sh "${PHIX_VERSION}" && \
+    rm -f /tmp/install_phix.sh && \
+    apt-get remove -y wget unzip && \
+    apt-get autoremove -y && \
     apt-get clean && \
-    rm -rf /var/cache/apt/* rm -rf /var/lib/apt/lists/*
-RUN /tmp/install_phix.sh "${PHIX_VERSION}" && \
-    rm -f /tmp/install_phix.sh
+    rm -rf /var/cache/apt/* /var/lib/apt/lists/*
