@@ -34,11 +34,11 @@ jobs:
       - name: Show tag
         run: echo "Tag (without v) is ${{steps.tag.outputs.tag}}"
 
-      - name: Build images
+      - name: Build regular images
         run: make build DOCKER_TAG_SUFFIX=-${{steps.tag.outputs.tag}}
 
-      - name: Test images
+      - name: Test regular images
         run: make test DOCKER_TAG_SUFFIX=-${{steps.tag.outputs.tag}}
 
-      - name: Publish images
-        run: make publish DOCKER_TAG_SUFFIX=-${{steps.tag.outputs.tag}}
+      - name: Publish multi-arch images
+        run: make publishx DOCKER_TAG_SUFFIX=-${{steps.tag.outputs.tag}}
