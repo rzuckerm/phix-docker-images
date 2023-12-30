@@ -41,8 +41,8 @@ help:
 
 .PHONY: build
 build: $(BUILD_TARGETS)
-$(BUILD_TARGETS): build-%: Dockerfile.% .meta-build-% $(INSTALL_SCRIPT)
-$(META_BUILD_TARGETS): .meta-build-%:
+$(BUILD_TARGETS): build-%: .meta-build-%
+$(META_BUILD_TARGETS): .meta-build-%: Dockerfile.% $(INSTALL_SCRIPT)
 	@echo "*** Building $(DOCKER_TAG_PREFIX)$*$(DOCKER_TAG_SUFFIX) ***"
 	docker rmi -f $(DOCKER_TAG_PREFIX)$*$(DOCKER_TAG_SUFFIX)
 	docker build -t $(DOCKER_TAG_PREFIX)$*$(DOCKER_TAG_SUFFIX) --build-arg PHIX_VERSION=$(PHIX_VERSION) -f Dockerfile.$* .
@@ -52,8 +52,8 @@ $(META_BUILD_TARGETS): .meta-build-%:
 
 .PHONY: buildx
 buildx: $(BUILDX_TARGETS)
-$(BUILDX_TARGETS): buildx-%: Dockerfile.% .meta-buildx-% $(META_CREATE_BUILDER_TARGET) $(INSTALL_SCRIPT)
-$(META_BUILDX_TARGETS): .meta-buildx-%:
+$(BUILDX_TARGETS): buildx-%: .meta-buildx-%
+$(META_BUILDX_TARGETS): .meta-buildx-%: Dockerfile.% $(META_CREATE_BUILDER_TARGET) $(INSTALL_SCRIPT)
 	@echo "*** Building multi-arch $(DOCKER_TAG_PREFIX)$*$(DOCKER_TAG_SUFFIX) ***"
 	docker rmi -f $(DOCKER_TAG_PREFIX)$*$(DOCKER_TAG_SUFFIX)
 	$(BUILDX)
@@ -69,7 +69,6 @@ $(META_CREATE_BUILDER_TARGET):
 	touch $@
 	@echo ""
 
-
 .PHONY: clean
 clean:
 	rm -f .meta*
@@ -80,7 +79,6 @@ $(TEST_TARGETS): test-%: .meta-build-%
 	@echo "*** Testing $(DOCKER_TAG_PREFIX)$*$(DOCKER_TAG_SUFFIX) ***"
 	./test.sh $(DOCKER_TAG_PREFIX)$*$(DOCKER_TAG_SUFFIX)
 	@echo ""
-
 
 .PHONY: publish
 publish: $(PUBLISH_TARGETS)
