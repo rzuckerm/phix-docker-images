@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 ARG PHIX_VERSION=
 COPY install_phix.sh /tmp/
 RUN apt-get update && \
-    apt-get install -y wget unzip && \
+    apt-get install -y wget unzip libmpfr6 && \
     /tmp/install_phix.sh "${PHIX_VERSION}" && \
     rm -f /tmp/install_phix.sh && \
     apt-get remove -y wget unzip && \

@@ -3,7 +3,7 @@ ARG PHIX_VERSION=
 COPY install_phix.sh /tmp/
 RUN set -ex && \
     apt-get update && \
-    apt-get install -y wget unzip gcc && \
+    apt-get install -y wget unzip gcc libmpfr6 && \
     /tmp/install_phix.sh "${PHIX_VERSION}" && \
     rm -f /tmp/install_phix.sh && \
     apt-get remove -y wget unzip && \
